@@ -34,5 +34,16 @@ export const resolvers: any = {
 
       return postResponse.data;
     },
+
+    updateUser: async (_, { firstName, lastName, age }) => {
+      const response = await fetch(`http://localhost:3000/updateUser/68`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, age }),
+      });
+
+      const updateResponse = await response.json();
+      return updateResponse.data;
+    },
   },
 };

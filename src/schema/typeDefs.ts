@@ -23,6 +23,13 @@ export const typeDefs = gql`
     categories: [Category]
   }
 
+  type updateUser {
+    id: Int!
+    firstName: String!
+    lastName: String!
+    age: Int!
+  }
+
   type PostResponse {
     id: Int!
     firstName: String!
@@ -45,5 +52,6 @@ export const typeDefs = gql`
   type Mutation {
     createUser(firstName: String!, lastName: String!, age: Int!): User
     createPost(title: String!, content: String!, userId: Int!): PostResponse
+    updateUser(firstName: String, lastName: String, age: Int): updateUser
   }
 `;
