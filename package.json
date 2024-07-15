@@ -12,11 +12,17 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@bull-board/api": "^5.21.0",
+    "@bull-board/express": "^5.21.0",
+    "@ngneat/falso": "^7.2.0",
+    "amqplib": "^0.10.4",
     "apollo-server-express": "^3.13.0",
     "bullmq": "^5.8.7",
     "express": "^4.19.2",
     "express-graphql": "^0.12.0",
     "graphql": "^15.9.0",
+    "ioredis": "^5.4.1",
+    "kafkajs": "^2.2.4",
     "lru-cache": "^10.2.2",
     "pg": "^8.4.0",
     "reflect-metadata": "^0.1.13",

@@ -1,5 +1,9 @@
 import { Server as SocketIOServer } from "socket.io";
-import { Socket } from "socket.io-client";
+import { randEmail, randFullName, randBrand, randAddress } from "@ngneat/falso";
+
+import userDetails from "./bullmq-config";
+import { publishMessage } from "./rabbitmq-config";
+import { publishToKafka } from "./kafka-config";
 
 export function setupSocketIOClient(ioClient: any) {
   const server1Socket = ioClient("http://localhost:3000");
@@ -18,8 +22,23 @@ export function setupSocketIOClient(ioClient: any) {
   });
 
   let count = 0;
-  server1Socket.on("messageFromServer1", (message: string) => {
-    console.log("message: ", message);
+  server1Socket.on("messageFromServer1", async (message: string) => {
+    const companyDetails = {
+      email: randEmail(),
+      name: randFullName(),
+      companyName: randBrand(),
+      address: randAddress(),
+      strength: Math.floor(Math.random() * 1000),
+    };
+
+    // Sending Messages to BullMQ
+    await userDetails.add(`Job Number: ${count}`, companyDetails);
+
+    // Sending Messages to RabbitMQ
+    await publishMessage(companyDetails);
+
+    // Sending Messages to Kafka
+    await publishToKafka(companyDetails);
     setTimeout(() => {
       server1Socket.emit("customEvent", `Hello fromGraphQL ${count}`);
       count++;
